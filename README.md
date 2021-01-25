@@ -16,7 +16,11 @@ Requirements
 ------------
 
 You first need to install the `Boost <http://www.boost.org>`_ libraries.
-You can compile your own local version. This is a must for Windows/MSCV. On Linux you can simply install it via:
+You can compile your own local version. 
+
+On Windows/MSVC, you must download and compile it yourself.
+
+On Linux you can simply install it via:
 
 ```
 $ sudo apt-get install libboost-dev
@@ -53,10 +57,19 @@ $ BOOST_ROOT=/path/to/boost/libraries make all
 ```
 
 #### Windows 
-
-The makefile will not work on Windows with MSVC. Not tested with neither CygWin nor MinGw. Execute the following instead:
+Since Makefile and the linux commands in it does not work on Windows, run the command below instead:
+(remember to replace <path_to_your_boost> with your path to boost)
 ```
-python setup.py install boost-location=<path_to_your_boost>
+pip install --no-deps --install-option="--boost-location=<path_to_your_boost>" --verbose --no-cache-dir .
+```
+
+Note on MeshViewer: Windows users need a special version of PyOpenGL to use the MeshViewer, because the one automatically installed via PYPI does not include the required DLL.
+
+please download the unofficial PyOpenGL wheel file from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl), uninstall the original version and install the new one by commands below:
+
+```
+pip uninstall pyOpenGL
+pip install <the-name-of-your-wheel-file>
 ```
 
 Testing
@@ -64,8 +77,16 @@ Testing
 
 To run the tests, simply do:
 
+#### Linux/MacOS
+
 ```
 $ make tests
+```
+
+#### Windows 
+
+```
+python -m unittest -v
 ```
 
 Documentation
