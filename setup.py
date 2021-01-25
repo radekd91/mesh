@@ -184,8 +184,10 @@ def _get_all_extensions():
     except:
         return []
 
-    # valid only for gcc/clang
-    extra_args = ['-O3']
+    if os.name == 'nt': # assume MSVC on windows
+        extra_args = [] # optimization is automatically enabled, /Ox not needed
+    else :
+        extra_args = ['-O3'] # valid only for gcc/clang
 
     import sys
     if sys.platform.find('linux') > -1:
