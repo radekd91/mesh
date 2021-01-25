@@ -66,10 +66,11 @@ class TestMesh(ExtendedTest):
 
     def test_writing_ascii_ply(self):
         m = Mesh(filename=self.test_ply_path)
-        (_, tempname) = tempfile.mkstemp()
+        (handle, tempname) = tempfile.mkstemp()
         m.write_ply(tempname, ascii=True)
         with open(tempname, 'r') as f:
             candidate = f.read()
+        os.close(handle)
         os.remove(tempname)
         with open(self.test_ply_path, 'r') as f:
             truth = f.read()
@@ -77,10 +78,11 @@ class TestMesh(ExtendedTest):
 
     def test_writing_bin_ply(self):
         m = Mesh(filename=self.test_ply_path)
-        (_, tempname) = tempfile.mkstemp()
+        (handle, tempname) = tempfile.mkstemp()
         m.write_ply(tempname)
         with open(tempname, 'rb') as f:
             candidate = f.read()
+        os.close(handle)
         os.remove(tempname)
         with open(self.test_bin_ply_path, 'rb') as f:
             truth = f.read()
