@@ -16,7 +16,11 @@ Requirements
 ------------
 
 You first need to install the `Boost <http://www.boost.org>`_ libraries.
-You can compile your own local version or simply do on Linux:
+You can compile your own local version. 
+
+On Windows/MSVC, you must download and compile it yourself.
+
+On Linux you can simply install it via:
 
 ```
 $ sudo apt-get install libboost-dev
@@ -38,6 +42,7 @@ $ python3 -m venv --copies my_venv
 $ source my_venv/bin/activate
 ```
 
+#### Linux/MacOS
 You should then compile and install the ``psbody-mesh`` package using the Makefile.
 If you are using the system-wide ``Boost`` libraries:
 
@@ -51,13 +56,37 @@ or the libraries locally installed:
 $ BOOST_ROOT=/path/to/boost/libraries make all
 ```
 
+#### Windows 
+Since Makefile and the linux commands in it does not work on Windows, run the command below instead:
+(remember to replace <path_to_your_boost> with your path to boost)
+```
+pip install --no-deps --install-option="--boost-location=<path_to_your_boost>" --verbose --no-cache-dir .
+```
+
+Note on MeshViewer: Windows users need a special version of PyOpenGL to use the MeshViewer, because the one automatically installed via PYPI does not include the required DLL.
+
+please download the unofficial PyOpenGL wheel file from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl), uninstall the original version and install the new one by commands below:
+
+```
+pip uninstall pyOpenGL
+pip install <the-name-of-your-wheel-file>
+```
+
 Testing
 -------
 
 To run the tests, simply do:
 
+#### Linux/MacOS
+
 ```
 $ make tests
+```
+
+#### Windows 
+
+```
+python -m unittest -v
 ```
 
 Documentation

@@ -1,0 +1,5 @@
+/data/unittest/* text eol=lf
+/data/unittest/*.obj text
+/data/unittest/*.pp text
+/data/unittest/sphere.ply text
+/data/unittest/test_box.ply text
